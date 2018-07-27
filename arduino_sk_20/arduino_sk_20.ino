@@ -1,7 +1,7 @@
 /********************************************************
   SSTV WIRELESS CAMERA @uzura-saan
   Scottie1 Format (320x256, COLOR)
-  2017.07.19 v2.2
+  2018.07.27 v2.3
   ARDUINO "DUE" + ETHERNET SHIELD R3 + AD9850 DDS
   ETHERNET SHIELD ACTS JUST AS A "SD CARD SHIELD"
   --- THIS CODE IS IN THE PUBLIC DOMAIN --- 
@@ -47,49 +47,51 @@ const boolean vox = 1; //VOX TONE ENABLE
 char charId[13] = "JI3BNB-SSTV-"; // ***** INFORMATION HEADER: MAX 12 CAHARCTERS *****
 
 //FONTS
-const uint8_t font_a[]   = {0x00, 0x18, 0x24, 0x62, 0x62, 0x62, 0x7E, 0x62, 0x62, 0x62, 0x00};
-const uint8_t font_b[]   = {0x00, 0x7C, 0x32, 0x32, 0x32, 0x3C, 0x32, 0x32, 0x32, 0x7C, 0x00};
-const uint8_t font_c[]   = {0x00, 0x3C, 0x62, 0x62, 0x60, 0x60, 0x60, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_d[]   = {0x00, 0x7C, 0x32, 0x32, 0x32, 0x32, 0x32, 0x32, 0x32, 0x7C, 0x00};
-const uint8_t font_e[]   = {0x00, 0x7E, 0x60, 0x60, 0x60, 0x7C, 0x60, 0x60, 0x60, 0x7E, 0x00};
-const uint8_t font_f[]   = {0x00, 0x7E, 0x60, 0x60, 0x60, 0x7C, 0x60, 0x60, 0x60, 0x60, 0x00};
-const uint8_t font_g[]   = {0x00, 0x3C, 0x62, 0x62, 0x60, 0x60, 0x66, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_h[]   = {0x00, 0x62, 0x62, 0x62, 0x62, 0x7E, 0x62, 0x62, 0x62, 0x62, 0x00};
-const uint8_t font_i[]   = {0x00, 0x3C, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x3C, 0x00};
-const uint8_t font_j[]   = {0x00, 0x1E, 0x0C, 0x0C, 0x0C, 0x0C, 0x4C, 0x4C, 0x4C, 0x38, 0x00};
-const uint8_t font_k[]   = {0x00, 0x62, 0x64, 0x68, 0x70, 0x68, 0x64, 0x62, 0x62, 0x62, 0x00};
-const uint8_t font_l[]   = {0x00, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x7E, 0x00};
-const uint8_t font_m[]   = {0x00, 0x42, 0x62, 0x76, 0x6A, 0x62, 0x62, 0x62, 0x62, 0x62, 0x00};
-const uint8_t font_n[]   = {0x00, 0x42, 0x62, 0x72, 0x6A, 0x66, 0x62, 0x62, 0x62, 0x62, 0x00};
-const uint8_t font_o[]   = {0x00, 0x3C, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_p[]   = {0x00, 0x7C, 0x62, 0x62, 0x62, 0x7C, 0x60, 0x60, 0x60, 0x60, 0x00};
-const uint8_t font_q[]   = {0x00, 0x3C, 0x62, 0x62, 0x62, 0x62, 0x62, 0x6A, 0x6A, 0x3C, 0x08};
-const uint8_t font_r[]   = {0x00, 0x7C, 0x62, 0x62, 0x62, 0x7C, 0x68, 0x64, 0x62, 0x62, 0x00};
-const uint8_t font_s[]   = {0x00, 0x3C, 0x62, 0x60, 0x60, 0x3C, 0x06, 0x06, 0x46, 0x3C, 0x00};
-const uint8_t font_t[]   = {0x00, 0x7E, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00};
-const uint8_t font_u[]   = {0x00, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_v[]   = {0x00, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x22, 0x14, 0x08, 0x00};
-const uint8_t font_w[]   = {0x00, 0x62, 0x62, 0x62, 0x62, 0x62, 0x6A, 0x76, 0x62, 0x42, 0x00};
-const uint8_t font_x[]   = {0x00, 0x42, 0x62, 0x74, 0x38, 0x1C, 0x2E, 0x46, 0x42, 0x42, 0x00};
-const uint8_t font_y[]   = {0x00, 0x42, 0x62, 0x74, 0x38, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00};
-const uint8_t font_z[]   = {0x00, 0x7E, 0x06, 0x0E, 0x0C, 0x18, 0x30, 0x70, 0x60, 0x7E, 0x00};
-const uint8_t font_0[]   = {0x00, 0x3C, 0x62, 0x62, 0x66, 0x6A, 0x72, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_1[]   = {0x00, 0x38, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00};
-const uint8_t font_2[]   = {0x00, 0x3C, 0x46, 0x06, 0x06, 0x1C, 0x20, 0x60, 0x60, 0x7E, 0x00};
-const uint8_t font_3[]   = {0x00, 0x3C, 0x46, 0x06, 0x06, 0x1C, 0x06, 0x06, 0x46, 0x3C, 0x00};
-const uint8_t font_4[]   = {0x00, 0x0C, 0x1C, 0x2C, 0x4C, 0x4C, 0x7E, 0x0C, 0x0C, 0x0C, 0x00};
-const uint8_t font_5[]   = {0x00, 0x7E, 0x60, 0x60, 0x60, 0x7C, 0x06, 0x06, 0x46, 0x3C, 0x00};
-const uint8_t font_6[]   = {0x00, 0x3C, 0x62, 0x60, 0x60, 0x7C, 0x62, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_7[]   = {0x00, 0x7E, 0x06, 0x0C, 0x18, 0x30, 0x30, 0x30, 0x30, 0x30, 0x00};
-const uint8_t font_8[]   = {0x00, 0x3C, 0x62, 0x62, 0x62, 0x3C, 0x62, 0x62, 0x62, 0x3C, 0x00};
-const uint8_t font_9[]   = {0x00, 0x3C, 0x46, 0x46, 0x46, 0x3E, 0x06, 0x06, 0x46, 0x3C, 0x00};
-const uint8_t font_slu[] = {0x00, 0x00, 0x02, 0x06, 0x0E, 0x1C, 0x38, 0x70, 0x60, 0x40, 0x00};
-const uint8_t font_das[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0x7E, 0x00, 0x00, 0x00, 0x00};
-const uint8_t font_dot[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x06, 0x00};
-const uint8_t font_que[] = {0x00, 0x3C, 0x46, 0x06, 0x06, 0x0C, 0x10, 0x00, 0x30, 0x30, 0x00};
-const uint8_t font_eks[] = {0x00, 0x18, 0x18, 0x18, 0x18, 0x10, 0x10, 0x00, 0x18, 0x18, 0x00};
-const uint8_t font_col[] = {0x00, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00};
-const uint8_t font_spa[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const uint8_t fonts[43][11] = {
+        {0x00, 0x18, 0x24, 0x62, 0x62, 0x62, 0x7E, 0x62, 0x62, 0x62, 0x00}, //00: A
+        {0x00, 0x7C, 0x32, 0x32, 0x32, 0x3C, 0x32, 0x32, 0x32, 0x7C, 0x00}, //01: B
+        {0x00, 0x3C, 0x62, 0x62, 0x60, 0x60, 0x60, 0x62, 0x62, 0x3C, 0x00}, //02: C
+        {0x00, 0x7C, 0x32, 0x32, 0x32, 0x32, 0x32, 0x32, 0x32, 0x7C, 0x00}, //03: D
+        {0x00, 0x7E, 0x60, 0x60, 0x60, 0x7C, 0x60, 0x60, 0x60, 0x7E, 0x00}, //04: E
+        {0x00, 0x7E, 0x60, 0x60, 0x60, 0x7C, 0x60, 0x60, 0x60, 0x60, 0x00}, //05: F
+        {0x00, 0x3C, 0x62, 0x62, 0x60, 0x60, 0x66, 0x62, 0x62, 0x3C, 0x00}, //06: G
+        {0x00, 0x62, 0x62, 0x62, 0x62, 0x7E, 0x62, 0x62, 0x62, 0x62, 0x00}, //07: H
+        {0x00, 0x3C, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x3C, 0x00}, //08: I
+        {0x00, 0x1E, 0x0C, 0x0C, 0x0C, 0x0C, 0x4C, 0x4C, 0x4C, 0x38, 0x00}, //09: J
+        {0x00, 0x62, 0x64, 0x68, 0x70, 0x68, 0x64, 0x62, 0x62, 0x62, 0x00}, //10: K
+        {0x00, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x7E, 0x00}, //11: L
+        {0x00, 0x42, 0x62, 0x76, 0x6A, 0x62, 0x62, 0x62, 0x62, 0x62, 0x00}, //12: M
+        {0x00, 0x42, 0x62, 0x72, 0x6A, 0x66, 0x62, 0x62, 0x62, 0x62, 0x00}, //13: N
+        {0x00, 0x3C, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x3C, 0x00}, //14: O
+        {0x00, 0x7C, 0x62, 0x62, 0x62, 0x7C, 0x60, 0x60, 0x60, 0x60, 0x00}, //15: P
+        {0x00, 0x3C, 0x62, 0x62, 0x62, 0x62, 0x62, 0x6A, 0x6A, 0x3C, 0x08}, //16: Q
+        {0x00, 0x7C, 0x62, 0x62, 0x62, 0x7C, 0x68, 0x64, 0x62, 0x62, 0x00}, //17: R
+        {0x00, 0x3C, 0x62, 0x60, 0x60, 0x3C, 0x06, 0x06, 0x46, 0x3C, 0x00}, //18: S
+        {0x00, 0x7E, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00}, //19: T
+        {0x00, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x3C, 0x00}, //20: U
+        {0x00, 0x62, 0x62, 0x62, 0x62, 0x62, 0x62, 0x22, 0x14, 0x08, 0x00}, //21: V
+        {0x00, 0x62, 0x62, 0x62, 0x62, 0x62, 0x6A, 0x76, 0x62, 0x42, 0x00}, //22: W
+        {0x00, 0x42, 0x62, 0x74, 0x38, 0x1C, 0x2E, 0x46, 0x42, 0x42, 0x00}, //23: X
+        {0x00, 0x42, 0x62, 0x74, 0x38, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00}, //24: Y
+        {0x00, 0x7E, 0x06, 0x0E, 0x0C, 0x18, 0x30, 0x70, 0x60, 0x7E, 0x00}, //25: Z
+        {0x00, 0x3C, 0x62, 0x62, 0x66, 0x6A, 0x72, 0x62, 0x62, 0x3C, 0x00}, //26: 0
+        {0x00, 0x38, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x00}, //27: 1
+        {0x00, 0x3C, 0x46, 0x06, 0x06, 0x1C, 0x20, 0x60, 0x60, 0x7E, 0x00}, //28: 2
+        {0x00, 0x3C, 0x46, 0x06, 0x06, 0x1C, 0x06, 0x06, 0x46, 0x3C, 0x00}, //29: 3
+        {0x00, 0x0C, 0x1C, 0x2C, 0x4C, 0x4C, 0x7E, 0x0C, 0x0C, 0x0C, 0x00}, //30: 4
+        {0x00, 0x7E, 0x60, 0x60, 0x60, 0x7C, 0x06, 0x06, 0x46, 0x3C, 0x00}, //31: 5
+        {0x00, 0x3C, 0x62, 0x60, 0x60, 0x7C, 0x62, 0x62, 0x62, 0x3C, 0x00}, //32: 6
+        {0x00, 0x7E, 0x06, 0x0C, 0x18, 0x30, 0x30, 0x30, 0x30, 0x30, 0x00}, //33: 7
+        {0x00, 0x3C, 0x62, 0x62, 0x62, 0x3C, 0x62, 0x62, 0x62, 0x3C, 0x00}, //34: 8
+        {0x00, 0x3C, 0x46, 0x46, 0x46, 0x3E, 0x06, 0x06, 0x46, 0x3C, 0x00}, //35: 9
+        {0x00, 0x00, 0x02, 0x06, 0x0E, 0x1C, 0x38, 0x70, 0x60, 0x40, 0x00}, //36: /
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0x7E, 0x00, 0x00, 0x00, 0x00}, //37: -
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x06, 0x00}, //38: .
+        {0x00, 0x3C, 0x46, 0x06, 0x06, 0x0C, 0x10, 0x00, 0x30, 0x30, 0x00}, //39: ?
+        {0x00, 0x18, 0x18, 0x18, 0x18, 0x10, 0x10, 0x00, 0x18, 0x18, 0x00}, //40: !
+        {0x00, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00}, //41: :
+        {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}  //42: space
+};
 
 void shortPulse (char PIN)
 {
@@ -494,6 +496,7 @@ void jpegDecode(void)
                 }
                 for(i = 0; i < 12; i++)
                 {
+                        byte fontNumber;
                         char ch;
                         ch = charId[i];
                         
@@ -506,395 +509,29 @@ void jpegDecode(void)
                                         uint8_t mask;
                                         mask = pow(2, 7 - x);
                                         
-                                        switch(ch)
+                                        if(ch >= 65 && ch <= 90) //A to Z
                                         {
-                                                case 'A':
-                                                        if((font_a[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'B':
-                                                        if((font_b[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'C':
-                                                        if((font_c[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'D':
-                                                        if((font_d[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'E':
-                                                        if((font_e[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'F':
-                                                        if((font_f[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'G':
-                                                        if((font_g[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'H':
-                                                        if((font_h[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'I':
-                                                        if((font_i[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'J':
-                                                        if((font_j[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'K':
-                                                        if((font_k[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'L':
-                                                        if((font_l[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'M':
-                                                        if((font_m[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'N':
-                                                        if((font_n[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'O':
-                                                        if((font_o[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'P':
-                                                        if((font_p[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'Q':
-                                                        if((font_q[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'R':
-                                                        if((font_r[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'S':
-                                                        if((font_s[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'T':
-                                                        if((font_t[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'U':
-                                                        if((font_u[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'V':
-                                                        if((font_v[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'W':
-                                                        if((font_w[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'X':
-                                                        if((font_x[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'Y':
-                                                        if((font_y[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case 'Z':
-                                                        if((font_z[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '0':
-                                                        if((font_0[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '1':
-                                                        if((font_1[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '2':
-                                                        if((font_2[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '3':
-                                                        if((font_3[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '4':
-                                                        if((font_4[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '5':
-                                                        if((font_5[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '6':
-                                                        if((font_6[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '7':
-                                                        if((font_7[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '8':
-                                                        if((font_8[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '9':
-                                                        if((font_9[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '/':
-                                                        if((font_slu[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '-':
-                                                        if((font_das[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '.':
-                                                        if((font_dot[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '?':
-                                                        if((font_que[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case '!':
-                                                        if((font_eks[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case ':':
-                                                        if((font_col[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
-                                                case ' ':
-                                                        if((font_spa[y] & mask) != 0)
-                                                        {
-                                                                for(j = 0; j < 9; j++)
-                                                                {
-                                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
-                                                                }
-                                                        }
-                                                        break;
+                                                fontNumber = ch - 65;
+                                        }
+                                        else if(ch >= 48 && ch <= 57) //0 to 9
+                                        {
+                                                fontNumber = ch - 22;
+                                        }
+                                        else if(ch == '/'){fontNumber = 36;}
+                                        else if(ch == '-'){fontNumber = 37;}
+                                        else if(ch == '.'){fontNumber = 38;}
+                                        else if(ch == '?'){fontNumber = 39;}
+                                        else if(ch == '!'){fontNumber = 40;}
+                                        else if(ch == ':'){fontNumber = 41;}
+                                        else if(ch == ' '){fontNumber = 42;}
+                                        else              {fontNumber = 42;}
+                                        
+                                        if((fonts[fontNumber][y] & mask) != 0)
+                                        {
+                                                for(j = 0; j < 9; j++)
+                                                {
+                                                        sortBuf[(3 * pxSkip) + j] = 0x00;
+                                                }
                                         }
                                 }
                         }
